@@ -15,6 +15,7 @@
                             <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Dashboard</button>
                             <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false"> Orders</button>
                             <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Account Details</button>
+                            <button class="nav-link" id="change-password-tab" data-bs-toggle="tab" data-bs-target="#change-password" type="button" role="tab" aria-controls="change-password" aria-selected="false">Change password</button>
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -45,35 +46,19 @@
                                         <table class="table table-bordered">
                                             <thead class="thead-light">
                                             <tr>
-                                                <th>Order</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
                                                 <th>Total</th>
-                                                <th>Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($orders as $order)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Aug 22, 2018</td>
+                                                <td>{{$order->created_at}}</td>
                                                 <td>Pending</td>
-                                                <td>$3000</td>
-                                                <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
+                                                <td>${{$order->price}}.00</td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>July 22, 2018</td>
-                                                <td>Approved</td>
-                                                <td>$200</td>
-                                                <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>June 12, 2017</td>
-                                                <td>On Hold</td>
-                                                <td>$990</td>
-                                                <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                                            </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -83,7 +68,16 @@
                                 <div class="myaccount-content">
                                     <h3>Account Details</h3>
                                     <div class="account-details-form">
-                                        <form action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+                                        @if($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                        <li>{{$error}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <form action="{{ route('account.update', $user->id) }}" method="post" enctype="multipart/form-data">
                                             @method('put')
                                             @csrf
                                             <div class="single-input-item">
@@ -98,7 +92,29 @@
                                                 <label for="email" class="required">Avatar</label>
                                                 <input type="file" name="image" class="form-control">
                                             </div>
-
+                                            <div class="single-input-item">
+                                                <button type = "submit" class="check-btn sqr-btn">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
+                                <div class="myaccount-content">
+                                    <h3>Change password</h3>
+                                    <div class="account-details-form">
+                                        @if($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                        <li>{{$error}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <form action="{{ route('account.password.update', $user->id) }}" method="post">
+                                            @method('put')
+                                            @csrf
                                             <fieldset>
                                                 <legend>Password change</legend>
                                                 <div class="single-input-item">

@@ -20,7 +20,7 @@
                                             @if(isset($categories))
                                             @foreach($categories as $category)
                                             <li>
-                                                <a href="{{route('shop', ['id' => $category->name])}}">{{$category->name}}</a>
+                                                <a href="{{route('catalog.show', ['name' => $category->name])}}">{{$category->name}}</a>
                                             </li>
                                             @endforeach
                                             @endif
@@ -69,7 +69,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('favorits.show') }}"><i class="fal fa-heart"></i>
+                                                <a href="{{ route('favorites.index') }}"><i class="fal fa-heart"></i>
                                                     <span class="cart-count">{{ count($favorits); }}</span>
                                                 </a>
                                             </li>
@@ -148,7 +148,7 @@
                         <span>${{ $carts_price }}.00</span>
                     </div>
                     <div class="cartmini__bottom">
-                        <a href="{{ route('cart.show') }}" class="b-btn w-100 mb-20">view cart</a>
+                        <a href="{{ route('cart.index') }}" class="b-btn w-100 mb-20">view cart</a>
                         <a href="checkout.html" class="b-btn-2 w-100">checkout</a>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="offcanvas__action mt-40 mb-15">
                             <a href="contact.html">Login</a>
-                            <a href="{{ route('cart.show') }}" class="has-tag">
+                            <a href="{{ route('cart.index') }}" class="has-tag">
                                 <svg viewBox="0 0 22 22">
                                     <path d="M20.26,11.3c2.31-2.36,2.31-6.18-0.02-8.53C19.11,1.63,17.6,1,16,1c0,0,0,0,0,0c-1.57,0-3.05,0.61-4.18,1.71c0,0,0,0,0,0
                                             L11,3.41l-0.81-0.69c0,0,0,0,0,0C9.06,1.61,7.58,1,6,1C4.4,1,2.89,1.63,1.75,2.77c-2.33,2.35-2.33,6.17-0.02,8.53
@@ -214,7 +214,7 @@
                                 <i class="far fa-shopping-bag"></i>
                                 <span class="tag">3</span>
                             </a>
-                            <div class="header__select header__select-d d-flex align-items-center mt-10">
+<!--                            <div class="header__select header__select-d d-flex align-items-center mt-10">
                                 <div class="header__lang header__select-item mr-15">
                                     <select>
                                         <option>EN</option>
@@ -233,7 +233,7 @@
                                         <option>Sterlin</option>
                                     </select><div class="nice-select" tabindex="0"><span class="current">USD</span><ul class="list list-2"><li data-value="USD" class="option selected focus">USD</li><li data-value="Euro" class="option">Euro</li><li data-value="Yen" class="option">Yen</li><li data-value="Rupee" class="option">Rupee</li><li data-value="Sterlin" class="option">Sterlin</li></ul></div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="offcanvas__social mt-15">
                             <ul>
@@ -262,96 +262,3 @@
 
 </section>
 <!-- sidebar area end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form>
-
-            <ul class="text-end">
-                &lt;!&ndash; Authentication Links &ndash;&gt;
-                @guest
-                    @if (Route::has('login'))
-
-                        <a class="btn btn-outline-light me-2" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        <a class="btn btn-warning" href="{{ route('register') }}">{{ __('Register') }}</a>
-
-                    @endif
-                @else
-
-                   <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" style="background-color: #0a2730; border: none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
-
-                @endguest
-            </ul>
-
-
-
-        </div>
-    </div>
-</header>-->

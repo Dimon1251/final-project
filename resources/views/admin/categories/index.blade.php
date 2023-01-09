@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{$category->name}}</td>
                                         <td>{{$category->deleted_at}}</td>
-                                        <form action="{{ route('admin.categories.edit', $category->id) }}" method="post">
+                                        <form action="{{ route('admin.categories.edit', $category->id) }}" method="get">
                                             @csrf
                                             <td class="table-action">
                                                 <button type="submit" ><i class="align-middle fas fa-fw fa-edit"></i></button>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('admin.categories.create') }}" method="post">
+                    <form action="{{ route('admin.categories.create') }}" method="get">
                         @csrf
                         <td class="table-action align-content-center">
                             <button type="submit" class="btn btn-primary">Add category</button>

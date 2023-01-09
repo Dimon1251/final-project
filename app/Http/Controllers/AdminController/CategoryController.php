@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\EditCategoryRequest;
 use App\Models\Category;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -14,8 +14,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories =  Category::withTrashed()->get();
-/*        $categories = Category::withTrashed();
-        $categories = Category::onlyTrashed();*/
         return view('admin.categories.index', ['categories' => $categories]);
     }
 
@@ -24,20 +22,14 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         $category = Category::firstOrCreate(
             ['name' => $request->name],
         );
         Storage::disk('local')->makeDirectory('public/categories/'.$category->name);
         $request->file('image')->storeAs('public/categories/'.$category->name, 'image.jpg');
-
-        return redirect()->route('admin.categories.index');
-    }
-
-    public function show($id)
-    {
-        //
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
     public function edit($id)
@@ -46,38 +38,29 @@ class CategoryController extends Controller
         return view('admin.categories.edit', ['category' => $category]);
     }
 
-    public function update(Request $request, $id)
+    public function update(EditCategoryRequest $request, $id)
     {
-
+        $category = Category::find($id);
             Category::where('id', $id)
             ->update(['name' => $request->name]);
         if ($request->image != '') {
             Storage::delete('public/categories/'.$category->name.'/image.jpg');
             $request->file('image')->storeAs('public/categories/'.$request->name, 'image.jpg');
         }
-
-        return redirect()->route('admin.categories.index');
-
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
     {
-
         $category = Category::find($id);
-  /*      Product::withTrashed()->find('1')->restore();
-        Product::where('category', $category->name)->update(['category' => 'null']);*/
-
-
         Category::where('name', $category->name)->delete();
         Storage::deleteDirectory('public/categories/'.$id);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 
     public function restore($id)
     {
         Category::withTrashed()->find($id)->restore();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Category restored successfully.');
     }
-
-
 }

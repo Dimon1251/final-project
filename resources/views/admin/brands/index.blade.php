@@ -14,13 +14,13 @@
             <div class="container-fluid">
                 <div class="header">
                     <h1 class="header-title">
-                        Users
+                        Brands
                     </h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin') }}">Admin panel</a></li>
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brand</li>
+                            <li class="breadcrumb-item active" aria-current="page">Brands</li>
                         </ol>
                     </nav>
                 </div>
@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>{{$brand->name}}</td>
                                         <td>{{$brand->visibility}}</td>
-                                        <form action="{{ route('admin.brands.edit', $brand->id) }}" method="post">
+                                        <form action="{{ route('admin.brands.edit', $brand->id) }}" method="get">
                                             @csrf
                                             <td class="table-action">
                                                 <button type="submit" ><i class="align-middle fas fa-fw fa-edit"></i></button>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('admin.brands.create') }}" method="post">
+                    <form action="{{ route('admin.brands.create') }}" method="get">
                         @csrf
                         <td class="table-action align-content-center">
                             <button type="submit" class="btn btn-primary">Add brand</button>

@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Transactions_item;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class MainController extends Controller
 {
+
     public function main() {
         $feature_product = Product::where('featured', true)->get();
-        $new_product = Product::all()->sortBy('created_at');
+        $new_product = Product::all()->sortByDesc('created_at');
         return view('user.main', ['feature_product' => $feature_product, 'new_product' => $new_product]);
     }
 
@@ -53,10 +50,6 @@ class MainController extends Controller
             'orders_total' => $orders_total,
             'orders_month' => $orders_month,
         ]);
-    }
-
-    public function blog() {
-        return view('user.blog');
     }
 
     public function ban() {

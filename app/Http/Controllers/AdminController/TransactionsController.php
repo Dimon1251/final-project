@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Transactions_item;
-use Illuminate\Http\Request;
-use Laravel\Cashier\Cashier;
 
 class TransactionsController extends Controller
 {
-
     public function index()
     {
         $transactions =  Transaction::all();

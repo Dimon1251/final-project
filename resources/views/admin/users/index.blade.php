@@ -53,7 +53,7 @@
                                         <td>{{$user->password}}</td>
                                         <td>{{$user->created_at}}</td>
                                         <td>{{$user->is_banned}}</td>
-                                        <form action="{{ route('admin.users.edit', $user->id) }}" method="post">
+                                        <form action="{{ route('admin.users.edit', $user->id) }}" method="get">
                                             @csrf
                                             <td class="table-action">
                                                 <button type="submit" ><i class="align-middle fas fa-fw fa-user-edit"></i></button>

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,46 +19,34 @@ Route::get('/ban', [App\Http\Controllers\MainController::class, 'ban'])->name('b
 
 Route::group(['middleware' => 'ban'], function () {
 
-
-    Route::get('/blog', [App\Http\Controllers\MainController::class, 'blog'])->name('blog');
-
     Route::get('/', [App\Http\Controllers\MainController::class, 'main'])->name('main');
 
-    Route::get('/favorite', [App\Http\Controllers\FavoritsController::class, 'show'])->name('favorits.show');
+    Route::get('/catalog/{name}', [App\Http\Controllers\CatalogController::class, 'show'])->name('catalog.show');
 
-
+    Route::get('/catalog/{name}/{brand}', [App\Http\Controllers\CatalogController::class, 'showBrand'])->name('catalog.show.brand');
 
     Route::get('/products/{product}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
-    Route::get('/products/cart/{id}', [App\Http\Controllers\ProductController::class, 'toCart'])->name('products.toCart');
 
-    Route::get('/category/{id}', [App\Http\Controllers\ProductController::class, 'shop'])->name('shop');
-    Route::get('/cart', [App\Http\Controllers\CartController::class, 'show'])->name('cart.show');
+    Route::middleware("auth")->group(function (){
+        Route::get('/products/{id}/addToCart', [App\Http\Controllers\ProductController::class, 'addToCartId'])->name('products.addToCartId');
+        Route::post('/products', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('products.addToCart');
+        Route::get('/products/{id}/addToFavorite', [App\Http\Controllers\ProductController::class, 'addToFavorite'])->name('products.addToFavorite');
 
+        Route::get('/favorites', [App\Http\Controllers\FavoritesController::class, 'index'])->name('favorites.index');
 
-    Route::get('/cart/{id}', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
+        Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
 
+        Route::get('/account', [App\Http\Controllers\AccountController::class, 'show'])->name('account');
+        Route::put('/account/{id}', [App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
+        Route::put('/account/{id}/password', [App\Http\Controllers\AccountController::class, 'passwordUpdate'])->name('account.password.update');
 
-    Route::get('/account', [App\Http\Controllers\ProductController::class, 'account'])->name('account');
-    Route::get('/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout');
-
-    Route::put('/users/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
-
-    Route::post('/products', [App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
-
-
-
-
-    Route::get('/index', [App\Http\Controllers\StripeController::class, 'index'])->name('index');
-    Route::post('/checkout', [App\Http\Controllers\StripeController::class, 'checkout'])->name('checkout');
-    Route::get('/success', [App\Http\Controllers\StripeController::class, 'success'])->name('success');
-
-
-
+        Route::get('/order/fail', [App\Http\Controllers\StripeController::class, 'fail'])->name('fail');
+        Route::post('/order/checkout', [App\Http\Controllers\StripeController::class, 'checkout'])->name('checkout');
+        Route::get('/order/success', [App\Http\Controllers\StripeController::class, 'success'])->name('success');
+    });
 });
-
-
-
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

@@ -368,6 +368,34 @@ input {
 /*----------------------------------------*/
 /*  04. Button CSS START
 /*----------------------------------------*/
+
+.catalogButton {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    line-height: 42px;
+    text-align: center;
+    border: 2px solid #e3e3e3;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.catalogButton.active {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    line-height: 42px;
+    text-align: center;
+    border: 2px solid #222;
+    font-size: 12px;
+    font-weight: 500;
+    color: #222;
+}
+
+.catalogButton:hover, catalogButton.active {
+    color: #222;
+    border-color: #222;
+}
 .b-btn {
   position: relative;
   display: inline-block;

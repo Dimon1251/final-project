@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('admin.products.create') }}" method="post">
+                    <form action="{{ route('admin.products.create') }}" method="get">
                         @csrf
                         <td class="table-action align-content-center">
                             <button type="submit" class="btn btn-primary">Add products</button>

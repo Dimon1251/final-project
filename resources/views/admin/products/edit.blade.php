@@ -29,7 +29,16 @@
                     <div class="col-md-12">
                         <div class="card mb-4">
                             <div class="card-body">
-                                <form action="{{ route('admin.products.update', $product->id) }}" method="post">
+                                @if($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <form action="{{ route('admin.products.update', $product->id) }}" method="post" enctype="multipart/form-data" >
                                     @method('put')
                                     @csrf
                                     <label class="form-label">Name</label>
@@ -50,24 +59,26 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-
                                     <div class="mb-3">
-                                        <label class="form-label">Image</label>
-                                        <table class="table table-bordered" id="linksTable">
+                                        <label class="form-label" for="toastr-duration">Brand</label>
+                                        <select class="form-select form-control" name="brand">
+                                            @foreach($brands as $brand)
+                                                <option value="{{$brand->name}}">{{$brand->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
                                         @for($i = 1; $i <= count(scandir('../storage/app/public/products/'.$product->id))-2; $i++)
                                                 <tr>
                                                     <td><img class="rounded-lg-3" src="{{ asset('storage/products/'.$product->id.'/'.$i.'.jpg') }}" alt="" height="360"></td>
                                                 </tr>
                                             @endfor
-                                        </table>
-                                        <button type="button" name="add" id="add" class="btn btn-outline-primary">Another links</button>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">New image (Old image will de deleted)</label>
                                         <table class="table table-bordered" id="linksTable">
                                             <tr>
-                                                <td><input type="file" name="links[link0]" class="form-control name_list" /></td>
+                                                <td><input type="file" accept=".jpg" name="links[link0]" class="form-control name_list" /></td>
                                             </tr>
                                         </table>
                                         <button type="button" name="add" id="add" class="btn btn-outline-primary">Another image</button>
@@ -152,7 +163,7 @@
 
         ++i;
 
-        $("#linksTable").append('<tr><td><input type="file" name="links[link'+i+']" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Delete</button></td></tr>');
+        $("#linksTable").append('<tr><td><input type="file" accept=".jpg" name="links[link'+i+']" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Delete</button></td></tr>');
     });
 
     $(document).on('click', '.remove-tr', function(){

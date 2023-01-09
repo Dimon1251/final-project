@@ -25,6 +25,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.categories.index') }}">Categories</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.brands.index') }}">Brand</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.transactions.index') }}">Transactions</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin') }}">Statistics</a></li>
                 </ul>
             </li>
         </ul>

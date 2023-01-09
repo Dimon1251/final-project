@@ -26,6 +26,15 @@
                     <div class="col-md-12">
                         <div class="card mb-4">
                             <div class="card-body">
+                                @if($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <form action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data" >
                                     @csrf
                                     <label class="form-label">Name</label>
@@ -50,23 +59,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-<!--                                    <div class="mb-3">
-                                        <label class="form-label" for="toastr-duration">Color</label>
-                                        <select class="form-select form-control" name="color">
-                                            <option value="yellow">yellow</option>
-                                            <option value="turquoise">turquoise</option>
-                                            <option value="pink">pink</option>
-                                            <option value="sapphire">sapphire</option>
-                                            <option value="gold">gold</option>
-                                            <option value="mint">mint</option>
-                                            <option value="black">black</option>
-                                        </select>
-                                    </div>-->
+
                                     <div class="mb-3">
                                         <label class="form-label">Image links</label>
                                         <table class="table table-bordered" id="linksTable">
                                             <tr>
-                                                <td><input type="file" name="links[link0]" class="form-control name_list" /></td>
+                                                <td><input type="file" accept=".jpg" name="links[link0]" class="form-control name_list" /></td>
                                             </tr>
                                         </table>
                                         <button type="button" name="add" id="add" class="btn btn-outline-primary">Another links</button>
@@ -150,7 +148,7 @@
 
         ++i;
 
-        $("#linksTable").append('<tr><td><input type="file" name="links[link'+i+']" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Delete</button></td></tr>');
+        $("#linksTable").append('<tr><td><input type="file" accept=".jpg" name="links[link'+i+']" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Delete</button></td></tr>');
     });
 
     $(document).on('click', '.remove-tr', function(){

@@ -26,6 +26,7 @@
 
 @include('user.parts.header')
 
+@include('alert')
 
     @yield('content')
 
@@ -51,4 +52,7 @@
 <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
+
+@yield('script')
+
 </html>

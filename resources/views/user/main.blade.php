@@ -1,9 +1,9 @@
 
 @extends('user.parts.layout')
 
-{{--@section('title')
-    Cart
-@endsection--}}
+@section('title')
+    Blackwood
+@endsection
 
 @section('content')
     <!-- slider area start -->
@@ -56,15 +56,14 @@
                     <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-6">
                         <div class="category__item mb-30 grey-bg-3">
                             <div class="category__thumb w-img fix">
-                                <a href="{{route('shop', ['id' => $category->name])}}">
+                                <a href="{{route('catalog.show', ['name' => $category->name])}}">
                                     <img src="{{asset('storage/categories/'.$category->name.'/image.jpg')}}" alt="">
                                 </a>
                             </div>
                             <div class="category__content text-center">
                                 <h3 class="category__title">
-                                    <a href="{{route('shop', ['id' => $category->name])}}">{{$category->name}}</a>
+                                    <a href="{{route('catalog.show', ['name' => $category->name])}}">{{$category->name}}</a>
                                 </h3>
-                                <span class="category__quantity">(Кол-во)</span>
                             </div>
                         </div>
                     </div>
@@ -229,7 +228,7 @@
                                                     <div class="product__action transition-3">
                                                         <ul>
                                                             <li>
-                                                                <a href="{{route('products.toCart', ['id' => $product->id])}}">
+                                                                <a href="{{route('products.addToCartId', ['id' => $product->id])}}">
                                                                     <svg viewBox="0 0 22 22">
                                                                         <g>
                                                                             <path d="M18,19H6c-0.5,0-0.92-0.37-0.99-0.86L3.13,5H1C0.45,5,0,4.55,0,4s0.45-1,1-1h3c0.5,0,0.92,0.37,0.99,0.86L6.87,17h10.39

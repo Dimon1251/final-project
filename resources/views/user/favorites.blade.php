@@ -29,10 +29,10 @@
                                     @foreach($favorits as $favorit)
                                         <tr>
                                             <td class="product-thumbnail"><a href="product-details.html"><img src=" {{ asset('storage/products/'.$favorit->product_id.'/1.jpg') }}" alt=""></a></td>
-                                            <td class="product-name"><a href="product-details.html">{{ ($products_all->whereIn('id', $favorit->product_id))[1]->name }}</a></td>
-                                            <td class="product-price"><span class="amount">${{ ($products_all->whereIn('id', $favorit->product_id))[1]->price }}.00</span></td>
+                                            <td class="product-name"><a href="product-details.html">{{ ($products_all->whereIn('id', $favorit->product_id))->value('name') }}</a></td>
+                                            <td class="product-price"><span class="amount">${{ ($products_all->whereIn('id', $favorit->product_id))->value('price') }}.00</span></td>
                                             <td class="product-quantity">
-                                                <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" >
+                                                <form action="{{ route('products.addToCart') }}" method="post" enctype="multipart/form-data" >
                                                 @csrf
                                                     <input hidden name="name" value="{{($products_all->where('id', $favorit->product_id))->value('name')}}">
                                                     <input hidden name="id" value="{{$favorit->product_id}}">
