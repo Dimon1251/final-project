@@ -9,4 +9,5 @@
     <meta name="author" content="Bootlab">
     <title>{{$title}}</title>
     <link href="{{ asset('admin/css/modern.css?v='.config('app.version')) }}" rel="stylesheet">
+    <meta name="csrf-token" content=" {{ csrf_token() }}">
 </head>

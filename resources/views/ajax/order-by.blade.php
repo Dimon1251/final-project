@@ -16,7 +16,7 @@
                                     <div class="product__action transition-3">
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="javascript:void(0)" id="ToCartId" data-id="{{ $product->id }}">
                                                     <svg viewBox="0 0 22 22">
                                                         <g>
                                                             <path d="M18,19H6c-0.5,0-0.92-0.37-0.99-0.86L3.13,5H1C0.45,5,0,4.55,0,4s0.45-1,1-1h3c0.5,0,0.92,0.37,0.99,0.86L6.87,17h10.39
@@ -27,7 +27,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('products.addToFavorite', ['id' => $product->id]) }}">
+                                                <a href="javascript:void(0)" id="ToFavorite" data-id="{{ $product->id }}">
                                                     <svg viewBox="0 0 22 22">
                                                         <path d="M20.26,11.3c2.31-2.36,2.31-6.18-0.02-8.53C19.11,1.63,17.6,1,16,1c0,0,0,0,0,0c-1.57,0-3.05,0.61-4.18,1.71c0,0,0,0,0,0
                                                                                 L11,3.41l-0.81-0.69c0,0,0,0,0,0C9.06,1.61,7.58,1,6,1C4.4,1,2.89,1.63,1.75,2.77c-2.33,2.35-2.33,6.17-0.02,8.53
@@ -57,7 +57,7 @@
                                 <div class="product__content">
                                     <div class="product__tag product__tag-4">
                                                                     <span>
-                                                                        <a href="#">{{ $product->brand }}</a>
+                                                                        <span>{{ $product->brand }}</span>
                                                                     </span>
                                     </div>
                                     <h3 class="product__title">
@@ -95,9 +95,8 @@
                                             </div>
                                             <p>{{ $product->description }}</p>
                                             <div class="wood-shop-product-actions">
-                                                <a href="cart.html" class="wood-cart-btn">Add to cart</a>
-                                                <a href="#" class="wood-proudct-btn-boxed"><i class="fal fa-heart"></i></a>
-                                                <a href="#" class="wood-proudct-btn-boxed"><i class="fal fa-layer-group"></i></a>
+                                                <a href="javascript:void(0)" id="ToCartId" data-id="{{ $product->id }}" class="wood-cart-btn">Add to cart</a>
+                                                <a href="javascript:void(0)" id="ToFavorite" data-id="{{ $product->id }}" class="wood-proudct-btn-boxed"><i class="fal fa-heart"></i></a>
                                             </div>
                                         </div>
                                     </div>

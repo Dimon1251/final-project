@@ -33,19 +33,19 @@
                     <div class="col-xxl-4 col-xl-4 col-lg-1 col-6">
                         <div class="header__bottom-right-wrapper d-flex justify-content-end align-items-center">
                             <div class="header__bottom-right d-none d-xl-flex align-items-center justify-content-end">
-                                <div class="header__search">
+<!--                                <div class="header__search">
                                     <form action="#">
                                         <div class="header__search-input">
                                             <input type="text" placeholder="Search anything..">
                                             <button type="submit"><i class="far fa-search"></i></button>
                                         </div>
                                     </form>
-                                </div>
+                                </div>-->
 
 
                                 @guest
                                     @if (Route::has('login'))
-                                        <div class="header__action ml-30">
+                                        <div class="header__action ml-45">
                                             <ul style="display: flex; flex-direction: row">
                                                 <li>
                                                     <a style="font-size: 16px"  href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -57,7 +57,7 @@
                                         </div>
                                     @endif
                                 @else
-                                    <div class="header__action ml-30">
+                                    <div class="header__action ml-45">
                                         <ul>
                                             <li>
                                                 <a href="{{ route('account') }}"><i class="fal fa-user-circle"></i></a>
@@ -122,22 +122,19 @@
                                 @foreach($carts as $cart)
                                 <li class="cartmini__item p-relative d-flex align-items-start">
                                     <div class="cartmini__thumb mr-15">
-                                        <a href="product-details.html">
+                                        <a href="{{route('products.show', ['product' => ($products_all->where('id', $cart->product_id))->value('name')])}}">
                                             <img src=" {{ asset('storage/products/'.$cart->product_id.'/1.jpg') }}" alt="">
                                         </a>
                                     </div>
                                   <div class="cartmini__content">
                                         <h3 class="cartmini__title">
-                                            <a href="product-details.html">{{ ($products_all->where('id', $cart->product_id))->value('name') }}</a>
+                                            <a href="{{route('products.show', ['product' => ($products_all->where('id', $cart->product_id))->value('name')])}}">{{ ($products_all->where('id', $cart->product_id))->value('name') }}</a>
 
                                         </h3>
                                         <span class="cartmini__price">
                                             <span class="price">{{ $cart->quantity }} × ${{ ($products_all->where('id', $cart->product_id))->value('price') }}.00</span>
                                         </span>
                                     </div>
-                                    <a href="#" class="cartmini__remove">
-                                        <i class="fal fa-times"></i>
-                                    </a>
                                 </li>
                                 @endforeach
                             @endif
@@ -149,7 +146,13 @@
                     </div>
                     <div class="cartmini__bottom">
                         <a href="{{ route('cart.index') }}" class="b-btn w-100 mb-20">view cart</a>
-                        <a href="checkout.html" class="b-btn-2 w-100">checkout</a>
+
+                        <form action ="/order/checkout" method ="POST">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                            <input class="carts-input" type="hidden" name="price" value="{{ $carts_price + 5 }}">
+                            <button type="submit" class="b-btn-2 w-100"
+                                    data-mdb-ripple-color="dark">checkout</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -169,9 +172,8 @@
                 <div class="offcanvas__wrapper">
                     <div class="offcanvas__top d-flex align-items-center mb-60 justify-content-between">
                         <div class="logo">
-                            <a href="index.html">
+                            <a>
                                 <img src="{{ asset('assets/img/logo/logo.png') }}" alt="logo">
-
                             </a>
                         </div>
                         <div class="offcanvas__close">
@@ -184,19 +186,13 @@
                             </button>
                         </div>
                     </div>
-                    <div class="sidebar__search mb-25">
-                        <form action="#">
-                            <input type="text" placeholder="What are you searching for?">
-                            <button type="submit"><i class="far fa-search"></i></button>
-                        </form>
-                    </div>
                     <div class="offcanvas__content p-relative z-index-1">
                         <div class="canvas__menu">
                             <div class="mobile-menu fix"></div>
                         </div>
                         <div class="offcanvas__action mt-40 mb-15">
-                            <a href="contact.html">Login</a>
-                            <a href="{{ route('cart.index') }}" class="has-tag">
+                            <a href="{{ route('account') }}"><i class="align-middle fas fa-fw fa-user"></i></a>
+                            <a href="{{ route('favorites.index') }}" class="has-tag">
                                 <svg viewBox="0 0 22 22">
                                     <path d="M20.26,11.3c2.31-2.36,2.31-6.18-0.02-8.53C19.11,1.63,17.6,1,16,1c0,0,0,0,0,0c-1.57,0-3.05,0.61-4.18,1.71c0,0,0,0,0,0
                                             L11,3.41l-0.81-0.69c0,0,0,0,0,0C9.06,1.61,7.58,1,6,1C4.4,1,2.89,1.63,1.75,2.77c-2.33,2.35-2.33,6.17-0.02,8.53
@@ -208,51 +204,10 @@
                                             c0.01-0.01,0.02-0.02,0.03-0.03c0.01-0.01,0.03-0.01,0.04-0.02C13.93,3.42,14.93,3,16,3c0,0,0,0,0,0c1.07,0,2.07,0.42,2.83,1.18
                                             c1.56,1.58,1.56,4.15,0,5.73c0,0,0,0.01-0.01,0.01c0,0,0,0,0,0L11,18.06L3.19,9.92z"/>
                                 </svg>
-                                <span class="tag">2</span>
                             </a>
-                            <a href="cart.html" class="has-tag">
+                            <a href="{{ route('cart.index') }}" class="has-tag">
                                 <i class="far fa-shopping-bag"></i>
-                                <span class="tag">3</span>
                             </a>
-<!--                            <div class="header__select header__select-d d-flex align-items-center mt-10">
-                                <div class="header__lang header__select-item mr-15">
-                                    <select>
-                                        <option>EN</option>
-                                        <option>BN</option>
-                                        <option>IN</option>
-                                        <option>CH</option>
-                                        <option>AM</option>
-                                    </select><div class="nice-select" tabindex="0"><span class="current">EN</span><ul class="list list-2"><li data-value="EN" class="option selected focus">EN</li><li data-value="BN" class="option">BN</li><li data-value="IN" class="option">IN</li><li data-value="CH" class="option">CH</li><li data-value="AM" class="option">AM</li></ul></div>
-                                </div>
-                                <div class="header__currency header__select-item">
-                                    <select>
-                                        <option>USD</option>
-                                        <option>Euro</option>
-                                        <option>Yen</option>
-                                        <option>Rupee</option>
-                                        <option>Sterlin</option>
-                                    </select><div class="nice-select" tabindex="0"><span class="current">USD</span><ul class="list list-2"><li data-value="USD" class="option selected focus">USD</li><li data-value="Euro" class="option">Euro</li><li data-value="Yen" class="option">Yen</li><li data-value="Rupee" class="option">Rupee</li><li data-value="Sterlin" class="option">Sterlin</li></ul></div>
-                                </div>
-                            </div>-->
-                        </div>
-                        <div class="offcanvas__social mt-15">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>

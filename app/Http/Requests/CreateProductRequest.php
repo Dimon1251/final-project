@@ -27,6 +27,11 @@ class CreateProductRequest extends FormRequest
             'name' => 'required|unique:products|min:3|max:20',
             'description' => 'required|min:5|max:1000',
             'price' => 'required|doesnt_start_with:0',
+            'brand' => 'required',
+            'color' => 'required',
+            'weight' => 'required',
+            'dimensions' => 'required',
+            'country' => 'required',
             'links' => 'required'
         ];
     }

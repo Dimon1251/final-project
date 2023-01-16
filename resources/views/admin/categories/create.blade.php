@@ -12,7 +12,7 @@
             <div class="col-12 col-xl-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Edit form</h5>
+                        <h5 class="card-title">Create form</h5>
                     </div>
                     <div class="card-body">
                         @if($errors->any())

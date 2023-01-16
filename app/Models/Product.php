@@ -19,5 +19,9 @@ class Product extends Model
         'visibility',
         'image',
         'brand',
+        'weight',
+        'dimensions',
+        'color',
+        'country'
     ];
 }

@@ -67,6 +67,19 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    <label class="form-label">Weight</label>
+                                    <input type="text" class="form-control" name="weight" value="{{ $product->weight }}" placeholder="Enter the weight"><br>
+
+                                    <label class="form-label">Dimensions</label>
+                                    <input type="text" class="form-control" name="dimensions" value="{{ $product->dimensions }}" placeholder="Enter the dimensions"><br>
+
+                                    <label class="form-label">Color</label>
+                                    <input type="text" class="form-control" name="color" value="{{ $product->color }}" placeholder="Enter the color"><br>
+
+                                    <label class="form-label">Manufacturer country</label>
+                                    <input type="text" class="form-control" name="country" value="{{ $product->country }}" placeholder="Enter the country"><br>
+
                                     <div class="mb-3">
                                         @for($i = 1; $i <= count(scandir('../storage/app/public/products/'.$product->id))-2; $i++)
                                                 <tr>

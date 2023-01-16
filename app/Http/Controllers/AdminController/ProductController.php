@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class  ProductController extends Controller
 {
@@ -28,6 +29,7 @@ class  ProductController extends Controller
     {
         Product::where('id', $id)
             ->update(['name' => $request->name, 'featured' => (bool)$request->featured, 'description' => $request->description, 'price' => $request->price,
+                'weight' => $request->weight, 'dimensions' => $request->dimensions, 'color' => $request->color, 'country' => $request->country,
                 'category' => $request->category, 'visibility' => (bool)$request->visibility]);
         if($request->links != null) {
             Storage::deleteDirectory('public/products/'.$id);
@@ -39,7 +41,7 @@ class  ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Product::where('id', $id)->delete();
         Storage::deleteDirectory('public/products/'.$id);
@@ -57,7 +59,8 @@ class  ProductController extends Controller
     {
         $product = Product::firstOrCreate(
             ['name' => $request->name],
-            ['featured' => (bool)$request->featured, 'description' => $request->description, 'price' => $request->price,
+            ['featured' => (bool)$request->featured, 'description' => $request->description, 'price' => $request->price, 'weight' => $request->weight,
+                'dimensions' => $request->dimensions, 'color' => $request->color, 'country' => $request->country,
                 'category' => $request->category, 'visibility' => (bool)$request->visibility, 'image' => 'null', 'brand' => $request->brand]
         );
         for ($i = 1; $i <= count($request->links); $i++) {

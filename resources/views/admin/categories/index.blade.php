@@ -27,59 +27,55 @@
                 <div class="row">
                     <div class="col-12 col-xl-12">
                         <div class="card">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th style="width:40%">Name</th>
-                                    <th style="width:40%">deleted_at</th>
+                            <div class="card-body">
+                                <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="datatables-reponsive" class="table table-striped dataTable no-footer dtr-inline" style="width: 100%;" aria-describedby="datatables-reponsive_info">
+                                                <thead>
+                                                <tr>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 600px;" aria-label="Name: activate to sort column ascending">Name</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 50px;" aria-label="Position: activate to sort column ascending">Products</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 100px;" aria-label="Office: activate to sort column ascending">Date delete</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 30px;" aria-label="Age: activate to sort column ascending">Edit</th>
+                                                    <th class="sorting sorting_desc" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 30px;" aria-label="Start date: activate to sort column ascending" aria-sort="descending">Restore</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" style="width: 30px;" aria-label="Salary: activate to sort column ascending">Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($categories as $category)
+                                                    <tr class="odd">
+                                                        <td class="dtr-control">{{ $category->name }}</td>
+                                                        <td class="">{{ (count($products_all->whereIn('category', $category->name))) }}</td>
+                                                        <td class="">{{$category->deleted_at}}</td>
 
-                                    <th>Edit</th>
-                                    <th>Restore</th>
-                                    <th>Delete</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($categories as $category)
-                                    <tr>
-                                        <td>{{$category->name}}</td>
-                                        <td>{{$category->deleted_at}}</td>
-                                        <form action="{{ route('admin.categories.edit', $category->id) }}" method="get">
-                                            @csrf
-                                            <td class="table-action">
-                                                <button type="submit" ><i class="align-middle fas fa-fw fa-edit"></i></button>
-                                            </td>
-                                        </form>
-                                        <form action="{{ route('admin.categories.restore', $category->id) }}" method="post">
-                                            @csrf
-                                            <td class="table-action">
-                                                <button type="submit" ><i class="align-middle fas fa-fw fa-eye-slash"></i></button>
-                                            </td>
-                                        </form>
-                                        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-
-                                            <td class="table-action">
-                                                <button type="submit" ><i class="align-middle fas fa-fw fa-trash"></i></button>
-                                            </td>
-                                        </form>
-                                    </tr>
-
-                                @endforeach
-                                </tbody>
-                            </table>
+                                                        <td>
+                                                            <a href="{{ route('admin.categories.edit', $category->id) }}"><i class="align-middle fas fa-fw fa-edit"></i></a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('admin.categories.restore', $category->id) }}"><i class="align-middle fas fa-fw fa-trash-restore"></i></a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('admin.categories.destroy', $category->id) }}"><i class="align-middle fas fa-fw fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <form action="{{ route('admin.categories.create') }}" method="get">
+                                    @csrf
+                                    <td class="table-action align-content-center">
+                                        <button type="submit" class="btn btn-primary">Add category</button>
+                                    </td>
+                                </form>
+                            </div>
                         </div>
                     </div>
-
-                    <form action="{{ route('admin.categories.create') }}" method="get">
-                        @csrf
-                        <td class="table-action align-content-center">
-                            <button type="submit" class="btn btn-primary">Add category</button>
-                        </td>
-                    </form>
                 </div>
-
             </div>
         </main>
         @include('admin.parts.footer')
@@ -96,6 +92,15 @@
     </defs>
 </svg>-->
 <script src="{{ asset('admin/js/app.js?v='.config('app.version')) }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Datatables Responsive
+        $("#datatables-reponsive").DataTable({
+            responsive: true
+        });
+    });
+
+</script>
 
 </body>
 

@@ -18,7 +18,7 @@ class AccountController extends Controller
     public function show()
     {
         $orders = Transaction::where('user_email', Auth::user()->email)->get();
-        $categories = Category::all();
+        $categories = Category::all()->where('visibility', true);
         $user = User::where('name', Auth::user()->name )->firstOrFail();
         return view("user.account", ['categories' => $categories, 'user' => $user, 'orders' => $orders]);
     }

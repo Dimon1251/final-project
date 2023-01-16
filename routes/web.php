@@ -27,10 +27,19 @@ Route::group(['middleware' => 'ban'], function () {
 
     Route::get('/products/{product}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
 
+
+    Route::get('/products/addToCart/{id}', [App\Http\Controllers\ProductController::class, 'addToCartId'])->name('products.addToCartId');
+    Route::post('/products', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('products.addToCart');
+    Route::get('/products/addToFavorite/{id}', [App\Http\Controllers\ProductController::class, 'addToFavorite'])->name('products.addToFavorite');
+
+
     Route::middleware("auth")->group(function (){
-        Route::get('/products/{id}/addToCart', [App\Http\Controllers\ProductController::class, 'addToCartId'])->name('products.addToCartId');
-        Route::post('/products', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('products.addToCart');
-        Route::get('/products/{id}/addToFavorite', [App\Http\Controllers\ProductController::class, 'addToFavorite'])->name('products.addToFavorite');
+
+        Route::get('/products/deleteFromCart/{id}', [App\Http\Controllers\ProductController::class, 'deleteFromCart'])->name('products.deleteFromCart');
+        Route::get('/products/deleteFromFavorite/{id}', [App\Http\Controllers\ProductController::class, 'deleteFromFavorite'])->name('products.deleteFromFavorite');
+
+        Route::post('/comments', [App\Http\Controllers\AdminController\CommentController::class, 'store'])->name('comments.store');
+
 
         Route::get('/favorites', [App\Http\Controllers\FavoritesController::class, 'index'])->name('favorites.index');
 

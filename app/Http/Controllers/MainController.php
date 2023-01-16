@@ -12,8 +12,8 @@ class MainController extends Controller
 {
 
     public function main() {
-        $feature_product = Product::where('featured', true)->get();
-        $new_product = Product::all()->sortByDesc('created_at');
+        $feature_product = Product::where('featured', true)->where('visibility', true)->get();
+        $new_product = Product::all()->where('visibility', true)->sortByDesc('created_at');
         return view('user.main', ['feature_product' => $feature_product, 'new_product' => $new_product]);
     }
 

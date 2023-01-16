@@ -6,156 +6,101 @@
 
 @section('content')
 
+    <!-- page__title-start -->
 
-        <!-- page__title-start -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="page__title-inner text-center">
+                    <h1>{{$category->name}}</h1>
+                    <div class="page__title-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="{{ route('main') }}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{$category->name}}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="page__title-inner text-center">
-                            <h1>{{$category->name}}</h1>
-                            <div class="page__title-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="{{ route('main') }}">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">{{$category->name}}</li>
-                                    </ol>
-                                </nav>
+
+    <!-- page__title-end -->
+
+    <!-- product-details-start -->
+    <section class="shop-details pt-90 pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-3 col-xl-4">
+                    <div class="pproduct-sidebar-area mr-60">
+                        <div class="product-widget mb-50">
+                            <h5 class="pt-title mb-20">Choose Brand</h5>
+                            <div class="brand">
+                                <ul>
+                                    <li><button class="brands" data-brand = "All">All brand</button></li>
+                                    @foreach($brands as $brand)
+                                        <li><button class="brands" data-brand = {{ $brand->name }}>{{ $brand->name }}</button></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-widget mb-50">
+                            <h5 class="pt-title mb-20">Featured Products</h5>
+                            <div class="features__product">
+                                <ul>
+                                    @foreach($products_featured as $product)
+                                        <li class="mb-20">
+                                            <div class="featires__product-wrapper d-flex">
+                                                <div class="features__product-thumb mr-15">
+                                                    <a href="{{route('products.show', ['product' => $product->name])}}"><img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="pro-sm-1" width="85px"></a>
+                                                </div>
+                                                <div class="features__product-content">
+                                                    <h5><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h5>
+                                                    <div class="price">
+                                                        <span>${{ $product->price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-        <!-- page__title-end -->
-
-        <!-- product-details-start -->
-        <section class="shop-details pt-90 pb-90">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-3 col-xl-4">
-                        <div class="pproduct-sidebar-area mr-60">
-<!--                            <div class="product-widget mb-30">
-                                <div class="single-widget">
-                                    <h5 class="pt-title pb-20">Filter By Price</h5>
-                                    <form action="#">
-                                        <div class="ui-price-slider">
-                                            <div class="slider-range">
-                                                <div id="slider-range" class="mb-20 ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span></div>
-                                                <div class="row">
-                                                    <div class="col-9">
-                                                        <p>
-                                                            <label for="amount">Price :</label>
-                                                            <input type="text" class ="filter_price" id="amount" readonly="">
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="text-end">
-                                                            <a href="#" class="sm-filter-title">Filter</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="product-widget mb-30">
-                                <div class="single-widget">
-                                    <h5 class="pt-title mb-20">Any Size</h5>
-                                    <div class="size">
-                                        <ul>
-                                            <li><a href="#">M</a></li>
-                                            <li><a href="#">X</a></li>
-                                            <li><a href="#">L</a></li>
-                                            <li><a href="#">XXL</a></li>
-                                        </ul>
+                <div class="col-xl-8">
+                    <div class="shop-top-area mb-20">
+                        <div class="row">
+                            <div class="col-xxl-4 col-xl-2 col-md-3 col-sm-3">
+                                <div class="shop-top-left">
+                                    <span class="label mr-15">View:</span>
+                                    <div class="nav d-inline-block tab-btn-group" id="nav-tab" role="tablist">
+                                        <button class="active" data-bs-toggle="tab" data-bs-target="#tab1" type="button"><i class="fas fa-border-none"></i></button>
+                                        <button data-bs-toggle="tab" data-bs-target="#tab2" type="button" class=""><i class="fas fa-list"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-widget mb-30">
-                                <h5 class="pt-title mb-20">Choose Color</h5>
-                                <div class="color__pick">
-                                    <form action="#">
-                                        <ul>
-                                            <li><button type="submit" class="color color-1"></button></li>
-                                            <li><button type="submit" class="color color-2"></button></li>
-                                            <li><button type="submit" class="color color-3"></button></li>
-                                            <li><button type="submit" class="color color-4"></button></li>
-                                            <li><button type="submit" class="color color-5"></button></li>
-                                            <li><button type="submit" class="color color-6"></button></li>
-                                            <li><button type="submit" class="color color-7"></button></li>
-                                        </ul>
-                                    </form>
-                                </div>
-                            </div>-->
-                            <div class="product-widget mb-50">
-                                <h5 class="pt-title mb-20">Choose Brand</h5>
-                                <div class="brand">
-                                    <ul>
-                                        <li><button class="brands" data-brand = "All">All brand</button></li>
-                                        @foreach($brands as $brand)
-                                            <li><button class="brands" data-brand = {{ $brand->name }}>{{ $brand->name }}</button></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-widget mb-50">
-                                <h5 class="pt-title mb-20">Featured Products</h5>
-                                <div class="features__product">
-                                    <ul>
-                                        @foreach($products_featured as $product)
-                                            <li class="mb-20">
-                                                <div class="featires__product-wrapper d-flex">
-                                                    <div class="features__product-thumb mr-15">
-                                                        <a href="{{route('products.show', ['product' => $product->name])}}"><img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="pro-sm-1" width="85px"></a>
-                                                    </div>
-                                                    <div class="features__product-content">
-                                                        <h5><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h5>
-                                                        <div class="price">
-                                                            <span>${{ $product->price }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                            <div class="col-xl-4 col-xl-4 col-md-3 col-sm-3">
+                                <div class="text-sm-end">
+                                    <div class="select-default">
+                                        <div class="nice-select shorting-select" tabindex="0">
+                                            <span class="current">Default sorting</span>
+                                            <ul class="list">
+                                                <li data-page ="{{ $page_current }}" data-order="default" class="option selected focus sorting_product">Default sorting</li>
+                                                <li data-page ="{{ $page_current }}" data-order="price-high-low" class="option sorting_product">Price: High-Low</li>
+                                                <li data-page ="{{ $page_current }}" data-order="price-low-high" class="option sorting_product">Price: Low-High</li>
+                                                <li data-page ="{{ $page_current }}" data-order="name-a-z" class="option sorting_product">Name: A-Z</li>
+                                                <li data-page ="{{ $page_current }}" data-order="name-z-a" class="option sorting_product">Name: Z-A</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-8">
-                        <div class="shop-top-area mb-20">
-                            <div class="row">
-                                <div class="col-xxl-4 col-xl-2 col-md-3 col-sm-3">
-                                    <div class="shop-top-left">
-                                        <span class="label mr-15">View:</span>
-                                        <div class="nav d-inline-block tab-btn-group" id="nav-tab" role="tablist">
-                                            <button class="active" data-bs-toggle="tab" data-bs-target="#tab1" type="button"><i class="fas fa-border-none"></i></button>
-                                            <button data-bs-toggle="tab" data-bs-target="#tab2" type="button" class=""><i class="fas fa-list"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-xl-4 col-md-3 col-sm-3">
-                                    <div class="text-sm-end">
-                                        <div class="select-default">
-                                            <div class="nice-select shorting-select" tabindex="0">
-                                                <span class="current">Default sorting</span>
-                                                <ul class="list">
-                                                    <li data-page ="{{ $page_current }}" data-order="default" class="option selected focus sorting_product">Default sorting</li>
-                                                    <li data-page ="{{ $page_current }}" data-order="price-high-low" class="option sorting_product">Price: High-Low</li>
-                                                    <li data-page ="{{ $page_current }}" data-order="price-low-high" class="option sorting_product">Price: Low-High</li>
-                                                    <li data-page ="{{ $page_current }}" data-order="name-a-z" class="option sorting_product">Name: A-Z</li>
-                                                    <li data-page ="{{ $page_current }}" data-order="name-z-a" class="option sorting_product">Name: Z-A</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ajax">
+                    <div class="ajax">
                         <div class="shop-main-area mb-40">
                             <h6 class="pt-title mb-20">{{ $brand_current }}</h6>
                             <div class="col-xxl-4 col-xl-6 col-md-6 col-sm-6">
@@ -174,7 +119,7 @@
                                                         <div class="product__action transition-3">
                                                             <ul>
                                                                 <li>
-                                                                    <a href="#">
+                                                                    <a href="javascript:void(0)" id="ToCartId" data-id="{{ $product->id }}">
                                                                         <svg viewBox="0 0 22 22">
                                                                             <g>
                                                                                 <path d="M18,19H6c-0.5,0-0.92-0.37-0.99-0.86L3.13,5H1C0.45,5,0,4.55,0,4s0.45-1,1-1h3c0.5,0,0.92,0.37,0.99,0.86L6.87,17h10.39
@@ -185,7 +130,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="{{ route('products.addToFavorite', ['id' => $product->id]) }}">
+                                                                    <a href="javascript:void(0)" id="ToFavorite" data-id="{{ $product->id }}">
                                                                         <svg viewBox="0 0 22 22">
                                                                             <path d="M20.26,11.3c2.31-2.36,2.31-6.18-0.02-8.53C19.11,1.63,17.6,1,16,1c0,0,0,0,0,0c-1.57,0-3.05,0.61-4.18,1.71c0,0,0,0,0,0
                                                                             L11,3.41l-0.81-0.69c0,0,0,0,0,0C9.06,1.61,7.58,1,6,1C4.4,1,2.89,1.63,1.75,2.77c-2.33,2.35-2.33,6.17-0.02,8.53
@@ -215,7 +160,7 @@
                                                     <div class="product__content">
                                                         <div class="product__tag product__tag-4">
                                                                 <span>
-                                                                    <a href="#">{{ $product->brand }}</a>
+                                                                    <span>{{ $product->brand }}</span>
                                                                 </span>
                                                         </div>
                                                         <h3 class="product__title">
@@ -237,30 +182,29 @@
                                     <div class="row">
                                         <div class="productwrap">
                                             <span hidden class="brandss" data-brand="{{ $brand_current }}"></span>
-                                        @foreach($products as $product)
-                                            <div class="single-product mb-30 wood-list-product-wrap">
-                                                <div class="row align-items-xl-center">
-                                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
-                                                        <div class="product-thumb mr-30 product-thumb-list w-img">
-                                                            <img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="#">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8">
-                                                        <div class="wood-product-content wood-product-list-content">
-                                                            <h4 class="pro-title pro-title-1"><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h4>
-                                                            <div class="pro-price">
-                                                                <span>{{ $product->price }}</span>
+                                            @foreach($products as $product)
+                                                <div class="single-product mb-30 wood-list-product-wrap">
+                                                    <div class="row align-items-xl-center">
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                                                            <div class="product-thumb mr-30 product-thumb-list w-img">
+                                                                <img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="#">
                                                             </div>
-                                                            <p>{{ $product->description }}</p>
-                                                            <div class="wood-shop-product-actions">
-                                                                <a href="cart.html" class="wood-cart-btn">Add to cart</a>
-                                                                <a href="#" class="wood-proudct-btn-boxed"><i class="fal fa-heart"></i></a>
-                                                                <a href="#" class="wood-proudct-btn-boxed"><i class="fal fa-layer-group"></i></a>
+                                                        </div>
+                                                        <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8">
+                                                            <div class="wood-product-content wood-product-list-content">
+                                                                <h4 class="pro-title pro-title-1"><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h4>
+                                                                <div class="pro-price">
+                                                                    <span>{{ $product->price }}</span>
+                                                                </div>
+                                                                <p>{{ $product->description }}</p>
+                                                                <div class="wood-shop-product-actions">
+                                                                    <a href="javascript:void(0)" id="ToCartId" data-id="{{ $product->id }}" class="wood-cart-btn">Add to cart</a>
+                                                                    <a href="javascript:void(0)" id="ToFavorite" data-id="{{ $product->id }}" class="wood-proudct-btn-boxed"><i class="fal fa-heart"></i></a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -276,73 +220,72 @@
                                             <button data-page="1" data-order="{{ $orderBy }}" class="catalogButton active pages">1</button>
                                         </li>
                                         @for ($i = 1; $i < $page_total; $i++)
-                                        <li>
-                                            <button href="" data-page="{{ $i+1 }}" data-order="{{ $orderBy }}" class="catalogButton pages">{{ $i+1 }}</button>
-                                        </li>
+                                            <li>
+                                                <button data-page="{{ $i+1 }}" data-order="{{ $orderBy }}" class="catalogButton pages">{{ $i+1 }}</button>
+                                            </li>
                                         @endfor
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- product-details-end -->
+        </div>
+    </section>
+    <!-- product-details-end -->
 
-        <!-- shop modal start -->
+    <!-- shop modal start -->
 
-            @foreach($products as $product)
-            <div class="modal fade" id="productModal{{$product->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered product__modal" role="document">
-                    <div class="modal-content">
-                        <div class="product__modal-wrapper p-relative">
-                            <div class="product__modal-close p-absolute">
-                                <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
-                            </div>
-                            <div class="product__modal-inner">
-                                <div class="row">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                        <div class="product__modal-box">
-                                            <div class="tab-content" id="modalTabContent">
-                                                <div class="tab-pane fade show active" id="nav1" role="tabpanel" aria-labelledby="nav1-tab">
-                                                    <div class="product__modal-img w-img">
-                                                        <img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="">
-                                                    </div>
+    @foreach($products as $product)
+        <div class="modal fade" id="productModal{{$product->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered product__modal" role="document">
+                <div class="modal-content">
+                    <div class="product__modal-wrapper p-relative">
+                        <div class="product__modal-close p-absolute">
+                            <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
+                        </div>
+                        <div class="product__modal-inner">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="product__modal-box">
+                                        <div class="tab-content" id="modalTabContent">
+                                            <div class="tab-pane fade show active" id="nav1" role="tabpanel" aria-labelledby="nav1-tab">
+                                                <div class="product__modal-img w-img">
+                                                    <img src="{{asset('storage/products/'.$product->id.'/1.jpg')}}" alt="">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                        <div class="product__modal-content">
-                                            <h4 class="product__modal-title"><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h4>
-                                            <div class="product__modal-des mb-40">
-                                                <p> {{ $product->description }} </p>
-                                            </div>
-                                            <div class="product__modal-price">
-                                                <span>${{ $product->price }}.00</span>
-                                            </div>
-                                            <div class="product__modal-form mb-30">
-                                                <form action="#">
-                                                    <div class="pro-quan-area d-lg-flex align-items-center">
-                                                        <div class="product-quantity mr-20 mb-25">
-                                                            <div class="cart-plus-minus p-relative"><input type="text" value="1" /></div>
-                                                        </div>
-                                                        <div class="pro-cart-btn mb-25">
-                                                            <a href="cart.html" class="add-to-cart-btn">Add to cart</a>
-                                                        </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="product__modal-content">
+                                        <h4 class="product__modal-title"><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h4>
+                                        <div class="product__modal-des mb-40">
+                                            <p> {{ $product->description }} </p>
+                                        </div>
+                                        <div class="product__modal-price">
+                                            <span>${{ $product->price }}.00</span>
+                                        </div>
+                                        <div class="product__modal-form mb-30">
+                                            <form action="{{ route('products.addToCart') }}" method="post" enctype="multipart/form-data" >
+                                                @csrf
+                                                <input hidden name="name" value="{{$product->name}}">
+                                                <input hidden name="id" value="{{$product->id}}">
+                                                <div class="pro-quan-area d-lg-flex align-items-center">
+                                                    <div class="product-quantity mr-20 mb-25">
+                                                        <div class="cart-plus-minus p-relative"><input name="quantity" type="text" value="1" /></div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="product__modal-links">
-                                                <ul>
-                                                    <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a></li>
-                                                    <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                                    <li><a href="#" title="Print"><i class="fal fa-print"></i></a></li>
-                                                    <li><a href="#" title="Print"><i class="fal fa-share-alt"></i></a></li>
-                                                </ul>
-                                            </div>
+                                                    <div class="pro-cart-btn mb-25">
+                                                        <button type="submit" class="add-to-cart-btn">Add to cart</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="product__modal-links">
+                                            <ul>
+                                                <li><a href="javascript:void(0)" id="ToFavorite" data-id="{{ $product->id }}" title="Add to Wishlist"><i class="fal fa-heart"></i></a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -351,117 +294,171 @@
                     </div>
                 </div>
             </div>
-            @endforeach
-        <!-- shop modal end -->
+        </div>
+    @endforeach
+    <!-- shop modal end -->
 
 
 @endsection
 
 @section('script')
-<script>
+    <script>
 
-  /*  $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });*/
+        $(document).ready(function () {
+            $('.sorting_product').click(function () {
+                let orderBy = $(this).data('order')
+                let page = $(this).data('page')
+                let brand = $('.brandss').data('brand')
+                console.log(brand)
+                console.log(page)
+                console.log(orderBy)
 
-    $(document).ready(function () {
-        $('.sorting_product').click(function () {
-            let orderBy = $(this).data('order')
-            let page = $(this).data('page')
-            let brand = $('.brandss').data('brand')
-            console.log(brand)
-            console.log(page)
-            console.log(orderBy)
-
-            $.ajax({
-                url: "{{ route('catalog.show', ['name' => $category->name]) }}",
-                type: "GET",
-                data: {
-                    orderBy: orderBy,
-                    page: 1,
-                    brand: brand
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: (data) => {
-                    let positionParameters = location.pathname.indexOf('?');
-                    let url = location.pathname.substring(positionParameters,location.pathname.length);
-                    let newURL = url + '?';
-                    newURL += 'orderBy=' + orderBy + '&page=' + page + '&brand=' + brand;
-                    history.pushState({}, '', newURL);
-                    $('.ajax').html(data)
-                }
-            })
-        })
-
-        $("body").on("click", ".pages", function(){
-            $(this).addClass("active")
-            let orderBy = $(".selected").data('order')
-            let page = $(this).data('page')
-            let brand = $('.brandss').data('brand')
-            console.log(brand)
-            console.log(page)
-            console.log(orderBy)
-
-            $.ajax({
-                url: "{{ route('catalog.show', ['name' => $category->name]) }}",
-                type: "GET",
-                data: {
-                    orderBy: orderBy,
-                    page: page,
-                    brand: brand
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: (data) => {
-                    let positionParameters = location.pathname.indexOf('?');
-                    let url = location.pathname.substring(positionParameters,location.pathname.length);
-                    let newURL = url + '?';
-                    newURL += 'orderBy=' + orderBy + '&page=' + page + '&brand=' + brand;
-                    history.pushState({}, '', newURL);
-                    $('.ajax').html(data)
-                }
+                $.ajax({
+                    url: "{{ route('catalog.show', ['name' => $category->name]) }}",
+                    type: "GET",
+                    data: {
+                        orderBy: orderBy,
+                        page: 1,
+                        brand: brand
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: (data) => {
+                        let positionParameters = location.pathname.indexOf('?');
+                        let url = location.pathname.substring(positionParameters,location.pathname.length);
+                        let newURL = url + '?';
+                        newURL += 'orderBy=' + orderBy + '&page=' + page + '&brand=' + brand;
+                        history.pushState({}, '', newURL);
+                        $('.ajax').html(data)
+                    }
+                })
             })
 
-        })
+            $("body").on("click", ".pages", function(){
+                $(this).addClass("active")
+                let orderBy = $(".selected").data('order')
+                let page = $(this).data('page')
+                let brand = $('.brandss').data('brand')
+                console.log(brand)
+                console.log(page)
+                console.log(orderBy)
 
-        $('.brands').click(function () {
-            let brand = $(this).data('brand')
-            let orderBy = $(".list").find(".selected").data('order')
-            console.log(brand)
-            console.log(orderBy)
+                $.ajax({
+                    url: "{{ route('catalog.show', ['name' => $category->name]) }}",
+                    type: "GET",
+                    data: {
+                        orderBy: orderBy,
+                        page: page,
+                        brand: brand
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: (data) => {
+                        let positionParameters = location.pathname.indexOf('?');
+                        let url = location.pathname.substring(positionParameters,location.pathname.length);
+                        let newURL = url + '?';
+                        newURL += 'orderBy=' + orderBy + '&page=' + page + '&brand=' + brand;
+                        history.pushState({}, '', newURL);
+                        $('.ajax').html(data)
+                    }
+                })
 
-            $.ajax({
-                url: "{{ route('catalog.show', ['name' => $category->name]) }}",
-                type: "GET",
-                data: {
-                    orderBy: orderBy,
-                    brand: brand,
-                    page : 1
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: (data) => {
-                    let positionParameters = location.pathname.indexOf('?');
-                    let url = location.pathname.substring(positionParameters,location.pathname.length);
-                    let newURL = url + '?';
-                    newURL += 'orderBy=' + orderBy + '&page=1&brand=' + brand;
-                    history.pushState({}, '', newURL);
-                    $('.ajax').html(data)
-                }
+            })
+
+            $('.brands').click(function () {
+                let brand = $(this).data('brand')
+                let orderBy = $(".list").find(".selected").data('order')
+                console.log(brand)
+                console.log(orderBy)
+
+                $.ajax({
+                    url: "{{ route('catalog.show', ['name' => $category->name]) }}",
+                    type: "GET",
+                    data: {
+                        orderBy: orderBy,
+                        brand: brand,
+                        page : 1
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: (data) => {
+                        let positionParameters = location.pathname.indexOf('?');
+                        let url = location.pathname.substring(positionParameters,location.pathname.length);
+                        let newURL = url + '?';
+                        newURL += 'orderBy=' + orderBy + '&page=1&brand=' + brand;
+                        history.pushState({}, '', newURL);
+                        $('.ajax').html(data)
+                    }
+                })
+
+            })
+
+
+            $("body").on("click", "#ToCartId", function(){
+                let id = $(this).data('id')
+                $.ajax({
+                    url: "{{ route('products.addToCartId', ['id' => '1']) }}".slice(0,-1) + id,
+                    type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: () => {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Successfully added to cart'
+                        })
+                    },
+                })
+            })
+
+            $("body").on("click", "#ToFavorite", function(){
+                let id = $(this).data('id')
+                $.ajax({
+                    url: "{{ route('products.addToFavorite', ['id' => '1']) }}".slice(0,-1) + id,
+                    type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: () => {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Successfully added to favorite'
+                        })
+                    },
+                    error: () => {
+                        location.href = "http://localhost:49000/login"
+                    }
+                })
             })
 
         })
 
 
-    })
 
-
-
-</script>
+    </script>
 @endsection

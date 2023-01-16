@@ -60,6 +60,18 @@
                                         </select>
                                     </div>
 
+                                    <label class="form-label">Weight</label>
+                                    <input type="text" class="form-control" name="weight" placeholder="Enter the weight"><br>
+
+                                    <label class="form-label">Dimensions</label>
+                                    <input type="text" class="form-control" name="dimensions" placeholder="Enter the dimensions"><br>
+
+                                    <label class="form-label">Color</label>
+                                    <input type="text" class="form-control" name="color" placeholder="Enter the color"><br>
+
+                                    <label class="form-label">Manufacturer country</label>
+                                    <input type="text" class="form-control" name="country" placeholder="Enter the country"><br>
+
                                     <div class="mb-3">
                                         <label class="form-label">Image links</label>
                                         <table class="table table-bordered" id="linksTable">

@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('category');
             $table->foreign('category')->references('name')->on('categories')->onUpdate('cascade');
             $table->string('brand');
+            $table->string('weight');
+            $table->string('dimensions');
+            $table->string('color');
+            $table->string('country');
             $table->foreign('brand')->references('name')->on('brands')->onUpdate('cascade');
             $table->boolean('visibility')->default(true);
             $table->string('image');

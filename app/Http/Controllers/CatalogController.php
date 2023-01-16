@@ -11,20 +11,20 @@ class CatalogController extends Controller
 {
     public function show(Request $request, $id)
     {
-        $products_featured =  Product::where('category', $id)->where('featured', true)->take(6)->get();
-        $brands = Brand::all();
-        $category = Category::where('name', $id)->firstOrFail();
+        $products_featured =  Product::where('category', $id)->where('featured', true)->where('visibility', true)->take(6)->get();
+        $brands = Brand::where('visibility', true)->get();
+        $category = Category::where('name', $id)->where('visibility', true)->firstOrFail();
 
 
         if($request->brand == '') {
             $brand_current = "All";
-            $page_total = ceil(count(Product::where('category', $id)->get())/10);
+            $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->get())/10);
             $products = Product::where('category', $id)->take(12)->get();
             $page_current = 1;
             $orderBy = "default";
             $products_quantity_from = 1;
             $products_quantity_to = count($products);
-            $products_quantity_total = count(Product::where('category', $id)->get());
+            $products_quantity_total = count(Product::where('category', $id)->where('visibility', true)->get());
         }
 
 
@@ -36,43 +36,43 @@ class CatalogController extends Controller
             $products_quantity_from = (12 * ($page_current - 1)) + 1;
             if($request->brand == "All") {
                 if ($request->orderBy == 'default') {
-                    $products = Product::where('category', $id)->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'price-low-high') {
-                    $products = Product::where('category', $id)->orderBy('price')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->orderBy('price')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'price-high-low') {
-                    $products = Product::where('category', $id)->orderBy('price', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->orderBy('price', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'name-a-z') {
-                    $products = Product::where('category', $id)->orderBy('name')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->orderBy('name')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'name-z-a') {
-                    $products = Product::where('category', $id)->orderBy('name', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->orderBy('name', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 $products_quantity_to = $products_quantity_from + count($products) - 1;
-                $products_quantity_total = count(Product::where('category', $id)->get());
-                $page_total = ceil(count(Product::where('category', $id)->get())/10);
+                $products_quantity_total = count(Product::where('category', $id)->where('visibility', true)->get());
+                $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->get())/10);
             }
             else {
                 if ($request->orderBy == 'default') {
-                    $products = Product::where('category', $id)->where('brand' , $brand_current)->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'price-low-high') {
-                    $products = Product::where('category', $id)->where('brand' , $brand_current)->orderBy('price')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->orderBy('price')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'price-high-low') {
-                    $products = Product::where('category', $id)->where('brand' , $brand_current)->orderBy('price', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->orderBy('price', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'name-a-z') {
-                    $products = Product::where('category', $id)->where('brand' , $brand_current)->orderBy('name')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->orderBy('name')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 if ($request->orderBy == 'name-z-a') {
-                    $products = Product::where('category', $id)->where('brand' , $brand_current)->orderBy('name', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
+                    $products = Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->orderBy('name', 'desc')->skip((($page_current) - 1) * 12)->take(12)->get();
                 }
                 $products_quantity_to = $products_quantity_from + count($products) - 1;
-                $products_quantity_total = count(Product::where('category', $id)->where('brand' , $brand_current)->get());
-                $page_total = ceil(count(Product::where('category', $id)->where('brand' , $brand_current)->get())/10);
+                $products_quantity_total = count(Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->get());
+                $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->get())/10);
             }
         }
 
@@ -97,22 +97,22 @@ class CatalogController extends Controller
     public function showBrand(Request $request, $id, $brand)
     {
         $brands = Brand::all();
-        $categories = Category::all();
-        $category = Category::where('name', $id)->firstOrFail();
-        $products = Product::where('category', $id)->where('brand', $brand)->get();
+        $categories = Category::all()->where('visibility', true);
+        $category = Category::where('name', $id)->where('visibility', true)->firstOrFail();
+        $products = Product::where('category', $id)->where('visibility', true)->where('brand', $brand)->get();
 
         if(isset($request->orderBy)){
             if($request->orderBy == 'price-low-high'){
-                $products = Product::where('category', $id)->where('brand', $brand)->orderBy('price')->get();
+                $products = Product::where('category', $id)->where('visibility', true)->where('brand', $brand)->orderBy('price')->get();
             }
             if($request->orderBy == 'price-high-low'){
-                $products = Product::where('category', $id)->where('brand', $brand)->orderBy('price', 'desc')->get();
+                $products = Product::where('category', $id)->where('visibility', true)->where('brand', $brand)->orderBy('price', 'desc')->get();
             }
             if($request->orderBy == 'name-a-z'){
-                $products = Product::where('category', $id)->where('brand', $brand)->orderBy('name')->get();
+                $products = Product::where('category', $id)->where('visibility', true)->where('brand', $brand)->orderBy('name')->get();
             }
             if($request->orderBy == 'name-z-a'){
-                $products = Product::where('category', $id)->where('brand', $brand)->orderBy('name', 'desc')->get();
+                $products = Product::where('category', $id)->where('visibility', true)->where('brand', $brand)->orderBy('name', 'desc')->get();
             }
         }
 

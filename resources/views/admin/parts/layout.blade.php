@@ -9,6 +9,8 @@
     <div class="main">
         @include('admin.parts.header')
 
+        @include('alert')
+
         <main class="container py-3 my-4">
             @yield('content')
         </main>
@@ -17,6 +19,8 @@
 </div>
 
 <script src="{{ asset('admin/js/app.js?v='.config('app.version')) }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js"></script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

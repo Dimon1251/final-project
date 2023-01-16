@@ -28,21 +28,19 @@
                                 @if($favorits != '')
                                     @foreach($favorits as $favorit)
                                         <tr>
-                                            <td class="product-thumbnail"><a href="product-details.html"><img src=" {{ asset('storage/products/'.$favorit->product_id.'/1.jpg') }}" alt=""></a></td>
-                                            <td class="product-name"><a href="product-details.html">{{ ($products_all->whereIn('id', $favorit->product_id))->value('name') }}</a></td>
+                                            <td class="product-thumbnail"><a href="{{ route('products.show', ['product' => ($products_all->whereIn('id', $favorit->product_id))->value('name')]) }}"><img src=" {{ asset('storage/products/'.$favorit->product_id.'/1.jpg') }}" alt=""></a></td>
+                                            <td class="product-name"><a href="{{ route('products.show', ['product' => ($products_all->whereIn('id', $favorit->product_id))->value('name')]) }}">{{ ($products_all->whereIn('id', $favorit->product_id))->value('name') }}</a></td>
                                             <td class="product-price"><span class="amount">${{ ($products_all->whereIn('id', $favorit->product_id))->value('price') }}.00</span></td>
                                             <td class="product-quantity">
-                                                <form action="{{ route('products.addToCart') }}" method="post" enctype="multipart/form-data" >
-                                                @csrf
-                                                    <input hidden name="name" value="{{($products_all->where('id', $favorit->product_id))->value('name')}}">
-                                                    <input hidden name="id" value="{{$favorit->product_id}}">
-                                                    <input hidden name="quantity" type="text" value="1">
-                                                    <div class="pro-cart-btn">
-                                                        <button type="submit" class="btn-tp">Add to Cart</button>
-                                                    </div>
-                                                </form>
+                                                <div class="pro-cart-btn">
+                                                    <a href="javascript:void(0)" id="ToCartId" data-id="{{ $favorit->product_id }}" type="submit" class="btn-tp">Add to Cart</a>
+                                                </div>
                                             </td>
-                                            <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+                                            <td>
+                                                <a data-id="{{ $favorit->product_id }}"  href="javascript:void(0)" class="delete-cart">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -56,4 +54,71 @@
     </section>
     <!-- cart-area end -->
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+
+            $("body").on("click", "#ToCartId", function () {
+                let id = $(this).data('id')
+                $.ajax({
+                    url: "{{ route('products.addToCartId', ['id' => '1']) }}".slice(0, -1) + id,
+                    type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: () => {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Successfully added to cart'
+                        })
+                    },
+                })
+            })
+
+            $(".delete-cart").click(function () {
+                let id = $(this).data("id")
+                console.log(id)
+                $.ajax({
+                    url: "{{ route('products.deleteFromFavorite', ['id' => '1']) }}".slice(0, -1) + id,
+                    type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: () => {
+
+                        $(this).parent().parent().remove()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Deleted'
+                        })
+
+                    },
+                })
+            })
+        })
+    </script>
 @endsection

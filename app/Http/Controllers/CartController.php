@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 class CartController extends Controller
 {
-    public function show() {
-        return view('user.cart');
+    public function index() {
+        $cart_item = 0;
+        return view('user.cart', ['cart_item' => $cart_item]);
     }
 }

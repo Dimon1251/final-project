@@ -32,10 +32,10 @@
                             <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
                                 <div class="myaccount-content">
                                     <h3>Dashboard</h3>
-                                    <img src="{{ Storage::url('users/'.$user->id.'/avatar.jpg') }}" alt="avatar">
                                     <div class="welcome">
                                         <p>Hello, <strong>{{$user->name}}</strong></p>
                                     </div>
+                                    <img style="border-radius: 50%;" src="{{ Storage::url('users/'.$user->id.'/avatar.jpg') }}" height="200px" width="200px" alt="avatar">
                                     <p>From your account dashboard. you can easily check & view your recent orders and edit your password and account details.</p>
                                 </div>
                             </div>

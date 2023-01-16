@@ -58,13 +58,6 @@
                                         <i class="fal fa-lock"></i>
                                     </div>
                                 </div>
-                                <div class="sign__action d-flex justify-content-between mb-30">
-                                    <div class="sign__agree d-flex align-items-center">
-                                        <input class="m-check-input" type="checkbox" id="m-agree">
-                                        <label class="m-check-label" for="m-agree">I agree to the <a href="#">Terms &amp; Conditions</a>
-                                        </label>
-                                    </div>
-                                </div>
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>

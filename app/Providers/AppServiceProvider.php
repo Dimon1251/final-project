@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+
         $carts = '';
         $carts_price = 0;
         $favorits = '';
@@ -55,8 +57,9 @@ class AppServiceProvider extends ServiceProvider
         View::share('carts_price', $carts_price);
         View::share('carts', $carts);
         View::share('favorits', $favorits);
-        View::share('categories', Category::all());
-        View::share('products_all', Product::all());
+        View::share('categories', Category::all()->where('visibility', true));
+        View::share('products_all', Product::all()->where('visibility', true));
+        View::share('featured', Product::where('featured', true)->where('visibility', true)->get());
 
 
     }
