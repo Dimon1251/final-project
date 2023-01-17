@@ -30,7 +30,8 @@ class ProductController extends Controller
         $comments = Comment::where('product_id', $product->id)->get();
         if (Auth::check()) {
             $cart = Cart::firstOrCreate(
-                ['product_id' => $request->id, 'quantity' => $request->quantity, 'user_email' => Auth::user()->email],
+                ['product_id' => $request->id],
+                ['quantity' => $request->quantity, 'user_email' => Auth::user()->email],
             );
             Mail::to($cart->user_email)->send(new AddtoCartMail($product));
         }
@@ -50,7 +51,8 @@ class ProductController extends Controller
     {
         if (Auth::check()) {
             Cart::firstOrCreate(
-                ['product_id' => $id, 'quantity' => 1, 'user_email' => Auth::user()->email],
+                ['product_id' => $id],
+                ['quantity' => 1, 'user_email' => Auth::user()->email],
             );
             $product = Product::find($id);
             Mail::to(Auth::user()->email)->send(new AddtoCartMail($product));

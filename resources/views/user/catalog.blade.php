@@ -59,7 +59,7 @@
                                                 <div class="features__product-content">
                                                     <h5><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h5>
                                                     <div class="price">
-                                                        <span>${{ $product->price }}</span>
+                                                        <span>${{ $product->price }}.00</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,7 +167,7 @@
                                                             <a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a>
                                                         </h3>
                                                         <div class="product__price product__price-4 mb-10">
-                                                            <span class="price">${{ $product->price }}</span>
+                                                            <span class="price">${{ $product->price }}.00</span>
                                                         </div>
                                                         <div class="product__select-button">
                                                             <a href="{{route('products.show', ['product' => $product->name])}}" class="select-btn w-100">View</a>
@@ -194,7 +194,7 @@
                                                             <div class="wood-product-content wood-product-list-content">
                                                                 <h4 class="pro-title pro-title-1"><a href="{{route('products.show', ['product' => $product->name])}}">{{ $product->name }}</a></h4>
                                                                 <div class="pro-price">
-                                                                    <span>{{ $product->price }}</span>
+                                                                    <span>${{ $product->price }}.00</span>
                                                                 </div>
                                                                 <p>{{ $product->description }}</p>
                                                                 <div class="wood-shop-product-actions">

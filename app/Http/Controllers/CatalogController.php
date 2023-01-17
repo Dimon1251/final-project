@@ -18,7 +18,7 @@ class CatalogController extends Controller
 
         if($request->brand == '') {
             $brand_current = "All";
-            $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->get())/10);
+            $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->get())/12);
             $products = Product::where('category', $id)->take(12)->get();
             $page_current = 1;
             $orderBy = "default";
@@ -72,7 +72,7 @@ class CatalogController extends Controller
                 }
                 $products_quantity_to = $products_quantity_from + count($products) - 1;
                 $products_quantity_total = count(Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->get());
-                $page_total = ceil(count(Product::where('category', $id)->where('visibility', true)->where('brand' , $brand_current)->get())/10);
+                $page_total = ceil(count($products)/12);
             }
         }
 

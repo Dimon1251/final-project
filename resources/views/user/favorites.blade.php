@@ -62,6 +62,7 @@
 
             $("body").on("click", "#ToCartId", function () {
                 let id = $(this).data('id')
+                console.log(id)
                 $.ajax({
                     url: "{{ route('products.addToCartId', ['id' => '1']) }}".slice(0, -1) + id,
                     type: "GET",

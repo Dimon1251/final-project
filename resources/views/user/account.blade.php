@@ -35,7 +35,9 @@
                                     <div class="welcome">
                                         <p>Hello, <strong>{{$user->name}}</strong></p>
                                     </div>
+                                    @if(Storage::exists('public/users/'.$user->id.'/avatar.jpg'))
                                     <img style="border-radius: 50%;" src="{{ Storage::url('users/'.$user->id.'/avatar.jpg') }}" height="200px" width="200px" alt="avatar">
+                                    @endif
                                     <p>From your account dashboard. you can easily check & view your recent orders and edit your password and account details.</p>
                                 </div>
                             </div>

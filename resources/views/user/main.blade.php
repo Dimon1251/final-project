@@ -55,7 +55,7 @@
                 @foreach($categories as $category)
                     <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-6">
                         <div class="category__item mb-30 grey-bg-3">
-                            <div class="category__thumb w-img fix">
+                            <div class="category__thumb w-img fix" style="height: 200px">
                                 <a href="{{route('catalog.show', ['name' => $category->name])}}">
                                     <img src="{{asset('storage/categories/'.$category->name.'/image.jpg')}}" alt="">
                                 </a>
@@ -76,7 +76,7 @@
 
 
     <!-- features area start -->
-    <section class="features__area pb-70">
+    <section class="features__area pb-30 pt-30">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6">
@@ -129,7 +129,7 @@
     <!-- features area end -->
 
     <!-- product area start -->
-    <section class="product__area pt-95 pb-80">
+    <section class="product__area pt-50 pb-80">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-10 col-xl-10 col-lg-10">

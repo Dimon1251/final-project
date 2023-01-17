@@ -9,7 +9,8 @@
     <div class="main">
         @include('admin.parts.header')
 
-        @include('alert')
+
+
 
         <main class="container py-3 my-4">
             @yield('content')

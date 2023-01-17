@@ -25,6 +25,7 @@
                     </nav>
                 </div>
                 <div class="row">
+                    @include('alert')
                     <div class="col-12 col-xl-12">
                         <div class="card">
                             <div class="card-body">

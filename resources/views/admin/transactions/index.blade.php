@@ -23,11 +23,8 @@
                         </ol>
                     </nav>
                 </div>
-
-
-
-
                 <div class="row">
+                    @include('alert')
                     <div class="col-12 col-xl-12">
                         <div class="card">
                             <div class="card-body">
@@ -71,51 +68,6 @@
                                     </td>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-                <div class="row">
-                    <div class="col-12 col-xl-12">
-                        <div class="card">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th style="width:20%">User email</th>
-                                    <th style="width:20%">Price</th>
-                                    <th style="width:20%">Stripe id</th>
-                                    <th style="width:20%">paid</th>
-                                    <th style="width:20%">data</th>
-
-                                    <th>Info</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($transactions as $transaction)
-                                    <tr>
-                                        <td>{{$transaction->user_email}}</td>
-                                        <td>{{$transaction->price}}</td>
-                                        <td>{{$transaction->stripe_id}}</td>
-                                        <td>{{$transaction->paid}}</td>
-                                        <td>{{$transaction->created_at}}</td>
-
-                                        <form action="{{ route('admin.transactions.show', $transaction->stripe_id) }}" method="get">
-                                            @csrf
-                                            <td class="table-action">
-                                                <button type="submit" ><i class="align-middle fas fa-fw fa-info"></i></button>
-                                            </td>
-                                        </form>
-                                    </tr>
-
-                                @endforeach
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
