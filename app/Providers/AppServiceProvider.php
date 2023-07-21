@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
 
-        $carts = '';
+      /*  $carts = '';
         $carts_price = 0;
         $favorits = '';
             view()->composer('*', function ($view) {
@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('favorits', $favorits);
         View::share('categories', Category::all()->where('visibility', true));
         View::share('products_all', Product::all()->where('visibility', true));
-        View::share('featured', Product::where('featured', true)->where('visibility', true)->get());
+        View::share('featured', Product::where('featured', true)->where('visibility', true)->get());*/
 
 
     }
